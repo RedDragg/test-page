@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body{
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    ul{
+      list-style: none;
+      height: 60vh;
+      width:  clamp(1rem, 100%, 45rem);
+      perspective: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+
+    }
+
+    li{
+      height: 10rem;
+      width: 95%;
+      background: beige;
+      border-radius: 15px;
+      transform:  translateY(calc(40px * var(--index-archief))) translateZ(calc(var(--index-archief) * 5px)) translateX(calc(var(--index-archief) * -1px));
+      position: absolute;
+      box-shadow: 0 0 2px 0 black;
+      transition: .5s;
+      top: 3rem;
+
+      .archief-head-bg{
+        background-color: beige;
+        padding: .15rem .25rem;
+        position: absolute;
+        top: -2.5rem;
+        left: 20px;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+        box-shadow: 0 -1px 1px 0px black;
+        transition: .5s;
+      }
+
+
+
+
+      h1{
+        padding: .5rem 1.5rem;
+        font-size: 1.2rem;
+      }
+
+      &:focus{
+        transform: translateY(calc(20px * var(--index-archief) )) translateZ(calc(var(--index-archief) * 0px)) translateX(50px);
+        transition: .5s;
+        z-index: 10;
+      }
+
+      &:hover{
+        background: gray;
+        transition: .5s;
+
+        .archief-head-bg{
+          background: gray;
+        }
+      }
+
+    }
+
+
+
+  </style>
+</head>
+<body>
+  <ul>
+    <li style="--index-archief:1;" tabindex="0">
+      <div class="archief-head-bg"><h1>B1 - archief 1</h1></div>
+
+    </li>
+    <li style="--index-archief:2;" tabindex="0">
+      <div class="archief-head-bg"><h1>B2 - archief 2</h1></div>
+    </li>
+        <li style="--index-archief:3;" tabindex="0">
+      <div class="archief-head-bg"><h1>B3 - archief 3</h1></div>
+    </li>
+        <li style="--index-archief:4;" tabindex="0">
+      <div class="archief-head-bg"><h1>B4 - archief 4</h1></div>
+    </li>
+        <li style="--index-archief:5;" tabindex="0">
+      <div class="archief-head-bg"><h1>B1 - archief 1</h1></div>
+
+    </li>
+    <li style="--index-archief:6" tabindex="0">
+      <div class="archief-head-bg"><h1>B2 - archief 2</h1></div>
+    </li>
+        <li style="--index-archief:7;" tabindex="0">
+      <div class="archief-head-bg"><h1>B3 - archief 3</h1></div>
+    </li>
+        <li style="--index-archief:8;" tabindex="0">
+      <div class="archief-head-bg"><h1>B4 - archief 4</h1></div>
+    </li>
+
+  </ul>
+</body>
+</html>

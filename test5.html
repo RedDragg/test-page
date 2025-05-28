@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Z-Axis Scroll Pure CSS</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      perspective: 600px;
+      overflow: hidden;
+      position: fixed;
+      /* top: 0; left: 0; right: 0; bottom: 99.99%; */
+    }
+
+    .wrapper {
+      transform-style: preserve-3d;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      /* transform: rotateX(45deg); */
+    }
+
+    .slides {
+      height: 400px;
+      overflow-y: auto;
+      transform-style: preserve-3d;
+      perspective: 600px;
+      transform: translate(-50%, 0%);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+    }
+
+    .slide {
+      width: 600px;
+      height: 300px;
+      margin: 40px auto;
+      background: #444;
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotateX(-45deg);
+      transform-origin: top center;
+      border: 2px solid white;
+    }
+
+    /* Kleuren voor effect */
+    .slide:nth-child(1) { background: hsla(0, 70%, 50%, 0.7); --index-archief:1;}
+    .slide:nth-child(2) { background: hsla(60, 70%, 50%, 0.7); --index-archief:2;}
+    .slide:nth-child(3) { background: hsla(120, 70%, 50%, 0.7); --index-archief:3; }
+    .slide:nth-child(4) { background: hsla(180, 70%, 50%, 0.7); --index-archief:4;}
+    .slide:nth-child(5) { background: hsla(240, 70%, 50%, 0.7); --index-archief:5;}
+    .slide:nth-child(6) { background: hsla(300, 70%, 50%, 0.7); --index-archief:6;}
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="slides">
+      <div class="slide">Emma</div>
+      <div class="slide">Lucas</div>
+      <div class="slide">Sophie</div>
+      <div class="slide">Daan</div>
+      <div class="slide">Tess</div>
+      <div class="slide">Finn</div>
+    </div>
+  </div>
+
+</body>
+</html>
