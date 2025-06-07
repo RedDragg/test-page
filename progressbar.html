@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skill Progress</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      padding: 2rem;
+    }
+
+    section.skills {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    article.skill {
+      margin-bottom: 2rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    progress {
+      width: 100%;
+      height: 20px;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    /* Firefox */
+    progress::-moz-progress-bar {
+      background: linear-gradient(to right, #4caf50, #81c784);
+      border-radius: 10px;
+    }
+
+    /* Chrome/Safari */
+    progress::-webkit-progress-bar {
+      background: #e0e0e0;
+      border-radius: 10px;
+    }
+
+    progress::-webkit-progress-value {
+      background: linear-gradient(to right, #4caf50, #81c784);
+      border-radius: 10px;
+      transition: width 2s ease;
+    }
+  </style>
+</head>
+<body>
+
+<section class="skills">
+  <article class="skill" data-percent="90">
+    <header>
+      <span>HTML</span>
+      <span>90%</span>
+    </header>
+    <progress max="100" value="0"></progress>
+  </article>
+
+  <article class="skill" data-percent="75">
+    <header>
+      <span>CSS</span>
+      <span>75%</span>
+    </header>
+    <progress max="100" value="0"></progress>
+  </article>
+
+  <article class="skill" data-percent="60">
+    <header>
+      <span>JavaScript</span>
+      <span>60%</span>
+    </header>
+    <progress max="100" value="0"></progress>
+  </article>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const skill = entry.target;
+        const progress = skill.querySelector('progress');
+        const value = skill.getAttribute('data-percent');
+        progress.value = value;
+        observer.unobserve(skill);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.skill').forEach(skill => {
+    observer.observe(skill);
+  });
+</script>
+
+</body>
+</html>

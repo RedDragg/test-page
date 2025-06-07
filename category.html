@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+     @font-face {
+            font-family: 'Favorit';
+            src: url('/font-favorit/Favorit_Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Favorit';
+            src: url('fonts-favorit/Favorit_Light.otf') format('opentype');
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Favorit';
+            src: url('fonts-favorit/Favorit_Bold.otf') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Favorit';
+            src: url('fonts-favorit/Favorit Light Italic.ttf') format('truetype');
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        @font-face {
+            font-family: 'Favorit';
+            src: url('fonts-favorit/Favorit Light Italic 2.ttf') format('truetype');
+            font-weight: 300;
+            font-style: italic;
+        }
+        
+
+
+        body {
+            font-family: 'Favorit', sans-serif;
+            overflow-x: clip;
+        }
+
+        main{
+            background: white;
+            z-index: 10;
+        }
+        ul{ list-style: none;}
+        footer{
+            height: 20dvh;
+            .footer-container {
+                position: fixed;
+                bottom: 0;
+                display: flex;
+                justify-content: space-between;
+                gap: 2rem;
+                width: 100%;
+                height: auto;
+                padding: 2rem;
+                background-color: black;
+                z-index: -1;
+                color: white;
+
+                a{
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+        }
+
+
+        .category {
+            display: flex;
+            width: 100dvw;
+            justify-content: center;
+            padding-top: 5rem;
+
+            .category-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                width: 85rem;
+                padding: 1rem;
+            }
+
+            .category-list {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+                width: 100%;
+
+                &:has(#images-only:checked) {
+                    td:not(:has(.category-image)) {
+                        display: none;
+                    }
+
+                    tr:not(:has(.category-image)) {
+                        display: none;
+                    }
+
+                    tbody {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    }
+
+                    tr {
+                        display: block;
+                        padding: .5rem;
+                        background: none;
+                    }
+                    
+                    .category-image {
+                        width: 100%;
+                        height: auto;
+                        object-fit: cover;
+                        border-radius: 5px;
+                        border: solid 1px red;
+                    }
+                }
+
+                .category-header {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    ul {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 1rem;
+                        list-style: none;
+
+                        li {
+                            label {
+                                cursor: pointer;
+                                padding: .2rem .4rem;
+
+                                &:has(input:checked) {
+                                    border: solid 1px #000;
+                                    border-radius: 5px;
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                tbody {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .table-header{
+                    position: sticky;
+                    top: 0;
+                    background: white;
+                    z-index: 10;
+                }
+
+                tr {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr 1fr 2fr .5fr;
+                    text-align: left;
+                    gap: 1rem;
+                    position: relative;
+                    padding: 1rem;
+
+                    td:has(.link-detail){
+                        position: absolute;
+                        inset: 0;
+
+                        a{
+                            position: absolute;
+                            inset: 0;
+                            z-index: 1;
+                            display: block;
+                        }
+                    }
+                    &:has(.link-detail:hover):is(:nth-child(odd), :nth-child(even)) {
+                        background: rgba(255, 0, 0, 0.1);
+                    }
+
+                    &:not(.table-header){
+                        background: #eaeaea;
+
+                        &:nth-child(odd) {
+                            background: #f5f5f5;
+                        }
+                    }
+
+                    &:nth-child(2) {
+                        border-radius: 5px 5px 0 0;
+                    }
+
+                    &:last-child {
+                        border-radius: 0 0 5px 5px;
+                    }
+                    
+                    
+
+                    h2{
+                        font-size: 1.1rem;
+                    }
+
+                    td:has(img) {
+                        text-align: right;
+                    }
+
+                    td:has(.participants) {
+                        width: max-content;
+                    }
+
+                    td:has(a){
+                        text-align: center;
+                    }
+                }
+
+                .category-image {
+                    width: 2.5rem;
+                    object-fit: cover;
+                    border-radius: 5px;
+                }
+            }
+
+            .breadcrumbs {
+                font-size: 0.8rem;
+                color: #555;
+                display: flex;
+                gap: 0.5rem;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 0 1rem;
+
+
+
+                .active {
+                    border: solid 1px #000;
+                    border-radius: 5px;
+                    padding: .2rem .4rem;
+                }
+            }
+
+            .exhibition {
+                background: red;
+            }
+
+            .type {
+                display: flex;
+                gap: 0.2rem;
+                align-items: center;
+                height: fit-content;
+            }
+
+            .types {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+            }
+
+
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+
+            .participants {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+
+                p{
+                    width: max-content;
+                }
+
+            }
+        }
+
+        @media (max-width: 571px) {
+            
+            .category{
+                #table-header {
+                            display: none;
+                        }
+
+                &:has(#images-only:checked){
+                    tr{
+                        padding: 0;
+                        border: none;
+                        background: none;
+                    }
+
+                    td:has(img){
+                        width: 5rem!important;
+                        height: 5rem!important;
+                    }
+
+                    .category-image {
+                        border: solid 1px red;
+                        width: 100%!important;
+                        height: 100%!important;
+                    }
+
+                    tbody{
+                        grid-template-columns: repeat(4, 1fr)!important;
+                    }
+
+                }
+
+                tr{
+                    grid-template-columns: 1.2fr .5fr;   
+                    grid-template-rows: repeat(6, auto);                 
+                    grid-template-areas: "left-title left-title"
+                                        "left-type right-item"
+                                        "left-date-s right-item"
+                                        "left-date-e right-item"
+                                        "left-rels right-item";
+
+                    td:nth-child(2) {
+                        grid-area: left-title;
+                        width: max-content;
+                    }
+                    td:nth-child(3) {
+                        grid-area: left-type;
+                    }
+                    td:nth-child(4) {
+                        grid-area: left-date-s;
+                    }
+                    td:nth-child(5) {
+                        grid-area: left-date-e;
+                    }
+                    td:nth-child(6) {
+                        grid-area: left-rels;
+                    }
+                    td:nth-child(7) {
+                        grid-area: right-item;
+                        #category-image {
+                            width: 100%;
+                            height: auto;
+                        }
+                    }
+
+                }
+            }
+
+            footer{
+                height: 30dvh;
+            }
+            .footer-container{
+                flex-direction: column;
+            }
+
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <main class="category">
+        <div class="category-wrapper">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &gt;
+                <a class="active" href="/category">Category</a>
+            </div>
+            <section class="category-list">
+                <!-- <a href="/">Back</a> -->
+                <div class="category-header">
+                    <h1>Category Name</h1>
+                    <ul>
+                        <li><label for="images-only"><input type="radio" id="images-only" name="view-category"
+                                    hidden>Images</label></li>
+                        <li><label for="list-items"><input type="radio" id="list-items" name="view-category" hidden
+                                    checked>List</label></li>
+                    </ul>
+                </div>
+                <p>Results 8062</p>
+                <table>
+                    <tr class="table-header" id="table-header">
+                        <th>
+                            <p>Title</p>
+                        </th>
+                        <th>
+                            <p>Type</p>
+                        </th>
+                        <th>
+                            <p>Date start</p>
+                        </th>
+                        <th>
+                            <p>Date end</p>
+                        </th>
+                        <th>
+                            <p>Participants</p>
+                        </th>
+                    </tr>
+                    <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image" id="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                                        <tr class="table-list">
+                        <td>
+                           <a href="#" class="link-detail"></a> 
+                        </td>
+                        <td>
+                            <h2>Screening: And still, it remains</h2>
+                        </td>
+                        <td class="type">
+                            <div class="types exhibition"></div>
+                            <p>Exhibition</p>
+                        </td>
+                        <td>
+                            <p>13 Jan 2024</p>
+                        </td>
+                        <td>
+                            <p>NaN</p>
+                        </td>
+                        <td class="participants">
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                            <p>Samia Henni</p>
+                        </td>
+                        <td><img src="images/bloem1.jpg" alt="bloem" class="category-image"></td>
+                    </tr>
+                </table>
+            </section>
+
+
+        </div>
+
+    </main>
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-contacts">
+                <li><p>Framer Framed</p></li>
+                <li><p>Oranje-Vrijstaatkade 71, 1093 KS Amsterdam</p></li>
+                <li><p>1093 KS Amsterdam</p></li>
+            </ul>
+            
+            <ul class="footer-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/terms">Terms of Service</a></li>
+            </ul>  
+        </div>
+
+    </footer>
+
+    <script>
+  const footer = document.querySelector('.footer-container');
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const totalHeight = document.body.scrollHeight;
+
+    const distanceFromBottom = totalHeight - (scrollY + viewportHeight);
+
+    if (distanceFromBottom <= 16) {
+      footer.style.zIndex = '0';
+    } else {
+      footer.style.zIndex = '-1';
+    }
+  });
+</script>
+
+</body>
+
+</html>

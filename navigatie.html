@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speciale Navigatie</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 32px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      margin: 20px auto;
+      max-width: 1000px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #1e3c72;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #1e3c72;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: 1rem;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus::after {
+      width: 100%;
+    }
+
+    /* Hamburger menu */
+    .hamburger {
+      display: none;
+      width: 30px;
+      height: 25px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background: #1e3c72;
+      border-radius: 2px;
+      left: 0;
+      transition: all 0.4s ease;
+    }
+
+    .hamburger span:nth-child(1) { top: 0; }
+    .hamburger span:nth-child(2) { top: 11px; }
+    .hamburger span:nth-child(3) { top: 22px; }
+
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg);
+      top: 11px;
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg);
+      top: 11px;
+    }
+
+    .mobile-menu {
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: max-height 0.5s ease, opacity 0.4s ease;
+    }
+
+    .mobile-menu.show {
+      max-height: 300px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-menu a {
+      padding: 16px 32px;
+      border-bottom: 1px solid #eee;
+      text-decoration: none;
+      color: #1e3c72;
+      transform: translateY(10px);
+      opacity: 0;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo" id="logo">MyBrand</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Over</a>
+      <a href="#">Diensten</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Home</a>
+    <a href="#">Over</a>
+    <a href="#">Diensten</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileLinks = mobileMenu.querySelectorAll("a");
+
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("open");
+      const isOpen = hamburger.classList.contains("open");
+
+      if (isOpen) {
+        mobileMenu.classList.add("show");
+
+        gsap.fromTo(mobileLinks,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power2.out"
+          }
+        );
+      } else {
+        gsap.to(mobileLinks, {
+          y: -10,
+          opacity: 0,
+          duration: 0.3,
+          stagger: 0.05,
+          onComplete: () => {
+            mobileMenu.classList.remove("show");
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

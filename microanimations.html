@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artikel met GSAP-animaties</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    h1, h2 {
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #0d47a1;
+      transition: transform 0.3s ease;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 30px;
+      color: #1565c0;
+      position: relative;
+      cursor: pointer;
+    }
+
+    p {
+      line-height: 1.6;
+      max-width: 700px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    /* Tooltip effect */
+    h2::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: -25px;
+      left: 0;
+      background: #1565c0;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    h2:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="title">De Kracht van Micro-Animaties met GSAP</h1>
+
+    <h2 data-tip="Introductie">Wat zijn micro-animaties?</h2>
+    <p>
+      Micro-animaties zijn kleine, subtiele bewegingen die een gebruikerservaring intuïtiever en leuker maken. Denk aan knoppen die reageren op hover, tekst die vloeiend in beeld komt, of icoontjes die zachtjes pulseren.
+    </p>
+
+    <h2 data-tip="Voordelen">Waarom zijn ze belangrijk?</h2>
+    <p>
+      Ze geven visuele feedback, trekken aandacht, en verhogen de gebruikerstevredenheid. Bovendien geven ze een professioneel gevoel aan je interface zonder te overweldigen.
+    </p>
+
+    <h2 data-tip="Techniek">Hoe gebruik je GSAP?</h2>
+    <p>
+      GSAP is een krachtige JavaScript-bibliotheek voor animaties. Met slechts een paar regels code kun je elementen laten bewegen, vervagen, schalen en nog veel meer — allemaal met vloeiende, high-performance overgangen.
+    </p>
+
+    <h2 data-tip="Conclusie">Tot slot</h2>
+    <p>
+      Micro-animaties maken je website niet alleen mooier, maar ook functioneler. Met tools als GSAP kun je snel professionele animaties toevoegen die het verschil maken.
+    </p>
+  </div>
+
+  <script>
+    // Intro slide-up animatie voor h1
+    gsap.from("#title", {
+      y: -50,
+      opacity: 0,
+      duration: 1,
+      ease: "power2.out"
+    });
+
+    // Fade-in animatie voor paragrafen
+    gsap.from("p", {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      stagger: 0.3,
+      delay: 0.5,
+      ease: "power2.out"
+    });
+
+    // Kleine bounce bij hover op kopjes
+    document.querySelectorAll("h2").forEach(h2 => {
+      h2.addEventListener("mouseenter", () => {
+        gsap.to(h2, {
+          scale: 1.05,
+          duration: 0.2,
+          ease: "back.out(2)"
+        });
+      });
+      h2.addEventListener("mouseleave", () => {
+        gsap.to(h2, {
+          scale: 1,
+          duration: 0.2
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
