@@ -982,6 +982,33 @@
         .skills-container {
             height: 100%;
         }
+
+        .weeklynerds{
+
+            table{
+                tr{
+                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+                    grid-template-rows: none;
+                    grid-template-areas: none;
+                    td{
+                        grid-area:unset!important;
+                    }
+                }
+            }
+            tr:has(th){
+                display: grid!important;
+            }
+
+            .role{
+                display: block;
+            }
+
+            th:has(.profile){
+                display: none;
+            }
+            
+        }
+
     }
 </style>
 
@@ -1245,7 +1272,7 @@
                         <th>Title</th>
                         <th>Date</th>
                         <th>Speaker</th>
-                        <th>Portfolio</th>
+                        <th class="profile">Profile</th>
                         <th>Role</th>
                         <th>inspired</th>
                         <th>usefull</th>
